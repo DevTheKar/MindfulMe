@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 # ------- TO DO LIST SECTION ------------- #
 
 class ToDoList(models.Model):
-	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="todolist", null=True)
+	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="todolist", null=False)
 	name = models.CharField(max_length=200)
 
 	def __str__(self):
@@ -30,3 +30,4 @@ class Note(models.Model):
     def __str__(self):
         return self.title
 #-----------------------------#
+

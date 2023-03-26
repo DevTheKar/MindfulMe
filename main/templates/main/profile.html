@@ -32,7 +32,7 @@
           <a href="/journal" class="navbar__links" id="journal-page">Journal</a>
         </li>
         <li class="navbar__item">
-          <a href="/todolist" class="navbar__links" id="track-page">Track</a>
+          <a href="/view" class="navbar__links" id="track-page">Track</a>
         </li>
         <li class="navbar__btn">
           <a href="/login" class="button" id="signup">Sign out</a>
@@ -107,7 +107,9 @@
       100% { transform: rotate(0deg); }
     }
 
-    
+    a{
+      text-decoration: none;
+    }
 
 
 	</style>
@@ -125,28 +127,32 @@
 
 	<br /> <br/>
 <!-- clickable buttons that will go to each feature will go here-->
-	<div class="services__wrapper">
-		<div class="services__card_profile">
+
+  <div class="services__wrapper">
+		<a href = "/affirm" class="services__card_profile">
 		  <h2 style = "font-size: 40px; color: black;">Affirm.</h2>
 		  <div style="display: flex; justify-content: center; align-items: center; padding: 15px;">
 			<img src="{% static 'graphics/music-solid.svg' %}" height="70px" width="70px">
-		  </div>
+    </div>
 		  <p style="color: black;">Receive daily affirmations and song recommendations to lift you up.</p>
-		</div>
-		<div class="services__card_profile">
+    </a>
+
+		<a href = "/journal" class="services__card_profile">
 		  <h2 style = "font-size: 40px; color: black;">Reflect.</h2>
 		  <div style="display: flex; justify-content: center; align-items: center; padding: 15px;">
 			<img src="{% static 'graphics/book-solid.svg' %}" height="70px" width="70px">
 		  </div>
 		  <p style="color: black;">Respond to journal prompts to foster a positive mindset.</p>
-		</div>
-		<div class="services__card_profile">
+		</a>
+
+		<a href = "/view" class="services__card_profile">
 		  <h2 style = "font-size: 40px; color: black;">Track.</h2>
 		  <div style="display: flex; justify-content: center; align-items: center; padding: 15px;">
 			<img src="{% static 'graphics/list-check-solid.svg' %}" height="70px" width="70px">
 		  </div>
 		  <p style="color: black;">Track your healthy habits daily with a checklist.</p>
-		</div>
+		</a>
+
 		
 	  </div>
 	</div>

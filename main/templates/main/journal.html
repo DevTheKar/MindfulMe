@@ -33,7 +33,7 @@
           <a href="/journal" class="navbar__links" id="journal-page">Journal</a>
         </li>
         <li class="navbar__item">
-          <a href="/todolist" class="navbar__links" id="track-page">Track</a>
+          <a href="/track" class="navbar__links" id="track-page">Track</a>
         </li>
         <li class="navbar__btn">
           <a href="/login" class="button" id="signup">Sign out</a>
@@ -178,64 +178,51 @@
        ::placeholder {
         color:#15000025;
        }
+
+       #button{
+        width: 100px;
+        height: 40px;
+        border-radius: 10px;
+        font-weight: bold;
+        border: none;
+        background-color: rgb(151, 105, 157);
+        color: white;
+        margin-top: 20px;
+        
+    }
+   
+    #button:hover {
+        background-color: rgb(123, 83, 129);
+        cursor: pointer; /* change the cursor to a pointer on hover */
+    }
     </style>
 
   <body style = "font-family: 'Noto Sans', sans-serif; background-color: white;">
 
     <div id="journal-prompt">
-      <h2>Journal Prompt:</h2>
+      <h2 class="font-weight-bolder">Journal Prompt:</h2>
+      <p>Write a letter of encouragement to yourself, acknowledging your strengths and expressing self-love and self-acceptance.</p>
       <div id="prompt" style="font-size: 1.2rem; color: black"></div>
-      
-  <script>
-    // 1. Request a list of prompts from the API
-    fetch('prompts.json')
-    .then(response => response.json())
-    .then(data => {
-      // 2. Parse the response to extract a random prompt
-      const randomIndex = Math.floor(Math.random() * data.length);
-      const prompt = data[randomIndex].text;
 
-      // 3. Display the prompt in the specified HTML element
-      const promptElement = document.getElementById('prompt');
-      promptElement.textContent = prompt;
-    });
-
-    // 4. Set up a function to fetch a new prompt every day
-    function fetchDailyPrompt() {
-      fetch('prompts.json')
-      .then(response => response.json())
-      .then(data => {
-        const randomIndex = Math.floor(Math.random() * data.length);
-        const prompt = data[randomIndex].text;
-
-        const promptElement = document.getElementById('prompt');
-        promptElement.textContent = prompt;
-      });
-    }
-
-    // 5. Call the function once per day
-    setInterval(fetchDailyPrompt, 86400000); // 24 hours in milliseconds
-      </script>
     </div>
 
   <div class="add-modal" id="add-modal">
-      <div class="form form-group">
+      <div style="margin-top: 2rem;">
           <form action="" method="post">
               {% csrf_token %}
-              <h3 style="text-align: center; font-family: 'Noto Sans', sans-serif;">Add Note</h3>
-              <div style="position: relative; margin: auto; width: 550px; height: 350px;">
+              <div style="position: relative; margin: auto; width: 550px; height: 385px;">
                 {{form |crispy}}
                </div>
               <div class="form-group text-center">
-                  <button type="submit" class="btn btn-primary " id="button">Save</button>
-                  <button type="button" class="btn btn-danger close-btn" onclick="closeModal('add-modal')" id="button">Cancel</button>
+                  <button type="submit" id="button">Save</button>
+                  <a href="/profile"><button type="button" onclick="closeModal('add-modal')" id="button">Cancel</button></a>
               </div>
           </form>
       </div>
   </div>
   <div class="container">
     <br>
-    <h1>Recent Notes</h1>
+    <h1 style="text-align:center;">Recent Notes</h1>
     
     <div class="form">
 
@@ -245,9 +232,9 @@
           
          
             {% if user == note.author %}
-              <h2 class="text-info">{{note.title}}</h2>
-              <p>{{note.description}}</p>
-              <div class="options">
+              <h2 class="text-info" style="text-align: center;">{{note.title}}</h2>
+              <p style="text-align:center;">{{note.description}}</p>
+              <div class="options text-center">
                 <a href="/update/{{note.id}}/" class="btn btn-success">Update</a>
                 <a href="/delete/{{note.id}}/" class="btn btn-danger">Delete</a>
               </div>

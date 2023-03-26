@@ -1,45 +1,123 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MindfulMe</title>
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+  </head>
+  
+  <!--Navbar section begins -->
+  <nav class="navbar"> 
+      <div class="navbar__container">
+  
+    <!--Link bank to profile page -->
+        <a href="/profile"> 
+          <img src = "{% static 'graphics/logo.png' %}" height = "50px" width = "230px" style="margin-top: 10px;"/>
+        </a>
+  
+    <!-- Div for menu on smaller devices/windows -->
+        <div class="navbar__toggle" id="mobile-menu">
+          <span class="bar"></span> <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+  
+    <!--Home in-page link-->
+        <ul class="navbar__menu">
+          <li class="navbar__item">
+            <a href="/affirm" class="navbar__links" id="affirm-page">Affirm</a>
+          </li>
+          
+    <!--Journal page link-->
+          <li class="navbar__item">
+            <a href="/journal" class="navbar__links" id="journal-page">Journal</a>
+          </li>
+  
+    <!--Track page link-->
+          <li class="navbar__item">
+            <a href="/track" class="navbar__links" id="track-page">Track</a>
+          </li>
+  
+    <!--Sign out button-->
+          <li class="navbar__btn">
+            <a href="/login" class="button" id="signup">Sign out</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!--Navbar section ends -->
+    <style>
+      body {
+        font-family: 'Noto Sans', sans-serif;
+        background-image: url("{% static 'graphics/background.jpg' %}");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        font-size: 16px;
+        text-align: center;
+      }
 
-<head>
+      #button{
+        width: 200px;
+        height: 40px;
+        border-radius: 10px;
+        font-weight: bold;
+        border: none;
+        background-color: rgb(151, 105, 157);
+        color: white;
+        margin-top: 20px;
+        
+    }
+   
+    #button:hover {
+        background-color: rgb(123, 83, 129);
+        cursor: pointer; /* change the cursor to a pointer on hover */
+    }
+    </style>
+  
+  <body>
 
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
-integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-<title>Track Test</title>
-</head>
-
-<body>
-
-    <h1>{{ls.name}}</h1>
+    <h1 style="color: black; font-size: 2.2rem; font-style: 'Noto Sans', sans-serif; text-align: center; font-weight: bold; margin-top: 2rem;">{{ls.name}}</h1>
 	<form method="post" action="#">
 		{% csrf_token %}
-		{% for item in ls.item_set.all %}
-		<div class="input-group mb-3">
-			<div class="input-group-prepend">
-				<div class="input-group-text">
-					{% if item.complete == True %}
-						<input type="checkbox" value="clicked" name="c{{item.id}}" checked>
-					{% else %}
-						<input type="checkbox" value="clicked" name="c{{item.id}}">
-					{% endif %}
-				</div>
-			</div>
-			<input type="text" value="{{item.text}}" class="form-control">
-		</div>
-		{% endfor %}
- 
-		<div class="input-group mb-3">
-			<div class="input-group-prepend">
-				<button type="submit" name="newItem" value="newItem" class="btn btn-success">Add Item</button>
+    <div style="display: flex; justify-content: center;">
+      <div style="flex: column; width: 40rem; justify-content: center;">
+        {% for item in ls.item_set.all %}
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              {% if item.complete == True %}
+                <input type="checkbox" value="clicked" name="c{{item.id}}" checked>
+              {% else %}
+                <input type="checkbox" value="clicked" name="c{{item.id}}">
+              {% endif %}
+            </div>
+          </div>
+          <input type="text" value="{{item.text}}" class="form-control">
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    
+		<div class="input-group mb-3" style="text-align:center; position: relative; justify-content: center;">
+			<div class="input-group-prepend" >
+				<button type="submit" name="newItem" value="newItem" id="button">Add Item</button>
 			</div>
 			<input type="text" name="new">
 		</div>
- 
-		<button type="submit" name="save" value="save" class="btn btn-success">Save</button>
+    
+    <p>Make sure at least one item is added before saving!</p>
+    <p>View all your checklists by going to Track</p>
+		<button type="submit" name="save" value="save" id = "button" >Save</button>
+
 	</form>
+
+    <a href="/delete_list/{{ls.name}}/" id = "button">Delete Checklist</a>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
 	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -47,7 +125,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
 	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
+	<script src="{% static 'js/app.js' %}"></script>
 </body>
 
 </html>

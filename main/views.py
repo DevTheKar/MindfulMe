@@ -6,8 +6,7 @@ from .forms import CreateNewList
 from .models import ToDoList, Item
 from .models import Note
 from .forms import NoteCreationForm,NoteUpdateForm
-
-# Create your views here.
+from django.shortcuts import render
 
 def index(request):
     # NEEDS INPUTS FROM BUTTONS AND STUFF
@@ -79,18 +78,19 @@ def update(request,id):
     }
     return render(request,'main/update.html',context)
 
-def delete(request,id):
+def delete(request, id):
     note_to_delete=Note.objects.get(id=id)
 
     note_to_delete.delete()
 
     return redirect('main:home_page')
 
+
 # DO NOT TOUCH ABOVE THIS
 
 
 def track(request):
-    return render(request, "main/track.html", {})
+    return render(request, "main/view.html", {})
 
 # James is working on this rn---------------------------------------
 
@@ -135,6 +135,13 @@ def create(request):
 
     return render(request, "main/create.html", {"form":form})
 
-def view(response):
-    return render(response, "main/view.html", {})
- 
+def view(request):
+    return render(request, "main/view.html", {})
+
+def delete_list(request, name): # Delete List Function
+    list_to_delete=ToDoList.objects.get(name=name)
+
+    list_to_delete.delete()
+
+    return redirect('main:view')
+

@@ -14,8 +14,6 @@ urlpatterns = [
     path('delete/<int:id>/',views.delete,name='delete'),
     path('update/<int:id>/',views.update,name='update'),
 
-    #Spotify
-    #path("spotify/", views.spotify, name="spotify"),
 
     #Register
     path('signup/', views.signup, name='signup'),
@@ -26,18 +24,12 @@ urlpatterns = [
     #affirm
     path('affirm/', views.affirm, name='affirm'),
 
-    #track
+    #track "Placeholder"
     path('track/', views.track, name="track"),
 
-    
-
-    #tracktest
-    #trackcreatetest
-    
-    
+    #track backend
     path("<int:id>", views.list, name="index"),
-
+    path('delete_list/<str:name>/', views.delete_list, name='delete_list'), # Delete List Button
     path("create/", views.create, name="create"), # Create Lists
-
     path("view/", views.view, name="view"),
 ]

@@ -40,7 +40,7 @@
 
   <!--Track page link-->
         <li class="navbar__item">
-          <a href="/todolist" class="navbar__links" id="track-page">Track</a>
+          <a href="/track" class="navbar__links" id="track-page">Track</a>
         </li>
 
   <!--Sign out button-->
@@ -162,13 +162,23 @@ setInterval(fetchDailyQuote, 86400000); // 24 hours in milliseconds
         <h2>Song of the Day</h2>
         <p id="song-name">No song selected</p>
         <p id="artist-name"></p>
-        <button onclick="authorizeAndFetch()">Get New Song</button>
+        <button id = "get-song" onclick="authorizeAndFetch()">Get Song</button>
+        <ul>
+          {% for track in tracks %}
+              <li>{{ track.name }} - {{ track.artists[0].name }}</li>
+          {% endfor %}
+        </ul>
+        
+        
       </div>
       
       <script>
         const clientId = '8925094b56504d3eaca1a3540024c946';
         const redirectUri = 'http://localhost:8000/affirm/'; // Your redirect URI here
         const scopes = ['user-read-private', 'user-read-email']; // Add your required scopes here
+        const newSongButton = document.querySelector('button');
+        newSongButton.addEventListener('click', authorizeAndFetch);
+
       
         function authorizeAndFetch() {
           const authorizeUrl = `https://accounts.spotify.com/authorize?response_type=code&client_id=${clientId}&scope=${encodeURIComponent(scopes.join(' '))}&redirect_uri=${encodeURIComponent(redirectUri)}`;
@@ -236,7 +246,7 @@ setInterval(fetchDailyQuote, 86400000); // 24 hours in milliseconds
             })
             .catch(error => console.error('Error:', error));
         }
-        newSongButton.addEventListener('click', fetchNewSong);
+      
         </script>
       
 
