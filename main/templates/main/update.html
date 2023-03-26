@@ -1,23 +1,27 @@
 {% load static %}
-<!DOCTYPE html>
 {% load crispy_forms_tags %}
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Signup</title>
+        <title>Login</title>
         <link rel="stylesheet" href="{% static 'css/global.css' %}">
         <link rel="stylesheet" href="{% static 'css/styles.css' %}">
         <link rel="preconnect" href="https://fonts.googleapis.com"> 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     
 <body>
 
-  <!-- NAVBAR HERE -->
+    <!-- Navbar -->
+
   <nav class="navbar">
     <div class="navbar__container">
+
+    <!-- clicking on logo brings you do index page-->
         <a href="/">
             <img src = "{% static 'graphics/logo.png' %}" height = "50px" width = "230px" style="margin-top: 10px;"/>
           </a>
@@ -27,22 +31,21 @@
       </div>
       <ul class="navbar__menu">
         <li class="navbar__item">
+      
+    <!-- clicking on home brings you to index page and clicking on sing up goes to signup page-->
           <a href="/" class="navbar__links" id="home-page">Home</a>
         <li class="navbar__btn">
-          <a href="/login" class="button" id="signup">Log In</a>
+          <a href="/signup" class="button" id="signup">Sign Up</a>
         </li>
       </ul>
     </div>
   </nav>
 
 <style> 
-
     body {
         background-image: url("{% static 'graphics/background.jpg' %}");
-        background-size: 100% 100%;
+        background-size: cover;
         background-repeat: no-repeat;
-        background-color: white;
-    
       }
 
     #login_bar {
@@ -50,7 +53,7 @@
         width: 60%; /* set the width to 80% of the viewport width */
         height: auto; /* set the height to auto to adjust for content */
         margin: auto;
-        margin-top: 8vw; /* set the top margin to 13% of the viewport width */
+        margin-top: 13vw; /* set the top margin to 13% of the viewport width */
         padding: 4vw; /* set the padding to 4% of the viewport width */
         text-align: center;
         font-weight: bold;
@@ -68,12 +71,6 @@
         font-size: 14px;
     }
 
-    .button-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
     #button{
         width: 300px;
         height: 40px;
@@ -82,24 +79,15 @@
         border: none;
         background-color: rgb(151, 105, 157);
         color: white;
-        margin-top: 40px;
+        margin-top: 20px;
     }
-
+   
     #button:hover {
         background-color: rgb(123, 83, 129);
         cursor: pointer; /* change the cursor to a pointer on hover */
     }
 
-    #crispy_form{
-        font-style: 'Noto Sans', sans-serif;
-        font-size: 18px;
-        text-align: center;
-        width: 450px;
-        margin: auto;
-        margin-top: -1rem;
-    }
-
-form input[type="text"],
+    form input[type="text"],
 form input[type="password"] {
   background-color: rgba(255, 255, 255, 0.908); /* translucent white color */
   border-radius: 30px; /* rounded corners */
@@ -108,31 +96,18 @@ form input[type="password"] {
 }
 
 
-
 </style>
 
-    <body style = "font-family: 'Noto Sans', sans-serif; background-color: white;" > 
-
-        <div  >
-
-          <h3 style="color: black; font-size: 2.2rem; font-style: 'Noto Sans', sans-serif; text-align: center; font-weight: bold; margin-top: 2rem;">SIGN UP</h3><br><br>
-
-            <form method = "POST" action="" >
-
-              <div id = "crispy_form">
+    <div class="container">
+        <div class="form">
+            <h3 class="text-primary">Update Note</h3>
+            <form action="" method="POST">
                 {% csrf_token %}
                 {{form | crispy}}
-              </div>
-
-                <div class = "button-container"> 
-                <button type="submit" id="button">Sign Up</button>
-                </div>
-                <br><br><br>
-
+                <button type="submit" class="btn-info btn">Update</button>
             </form>
-
         </div>
-
+    </div>
       <script src="{% static 'js/app.js' %}"></script>
     </body>
 

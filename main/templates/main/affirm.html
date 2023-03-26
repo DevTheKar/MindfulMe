@@ -55,8 +55,8 @@
     <style>
       body {
         font-family: 'Noto Sans', sans-serif;
-        background-image: url("graphics/background.jpg");
-        background-size: cover;
+        background-image: url("{% static 'graphics/background.jpg' %}");
+        background-size: 100% 100%;
         background-repeat: no-repeat;
         font-size: 16px;
         text-align: center;
@@ -113,22 +113,137 @@
       #song-box button:hover {
         background-color: rgb(76, 137, 144);
       }
+
     </style>
     
-  <body>
+  
     <div id="boxes">
       <div id="affirmation-box">
-        <h2>Affirmation</h2>
-        <p>Great to have you here!</p>
-        <button>Get New Affirmation</button>
-      </div>
-      <div id="song-box">
-        <h2>Song of the Day</h2>
-        <p>No song selected</p>
-        <button>Get New Song</button>
+        <h2>Affirmation of the day:</h2>
+        <br/>
+        <div id="affirmation" style="font-size: 1.2rem; padding: 1.3rem; border: 3px dotted rgba(151, 105, 157, 0.5); border-radius: 20px; color: black">"<span id="quote"></span>"</div>
       </div>
     </div>
 
+        <script>
+          // 1. Request a list of quotes from the API
+fetch('https://type.fit/api/quotes')
+  .then(response => response.json())
+  .then(data => {
+    // 2. Parse the response to extract a random quote
+    const randomIndex = Math.floor(Math.random() * data.length);
+    const quote = data[randomIndex].text;
+
+    // 3. Display the quote in the specified HTML element
+    const quoteElement = document.getElementById('quote');
+    quoteElement.textContent = quote;
+  });
+
+// 4. Set up a function to fetch a new quote every day
+function fetchDailyQuote() {
+  fetch('https://type.fit/api/quotes')
+    .then(response => response.json())
+    .then(data => {
+      const randomIndex = Math.floor(Math.random() * data.length);
+      const quote = data[randomIndex].text;
+
+      const quoteElement = document.getElementById('quote');
+      quoteElement.textContent = quote;
+    });
+}
+
+// 5. Call the function once per day
+setInterval(fetchDailyQuote, 86400000); // 24 hours in milliseconds
+        </script>
+
+      </div>
+
+      <div id="song-box">
+        <h2>Song of the Day</h2>
+        <p id="song-name">No song selected</p>
+        <p id="artist-name"></p>
+        <button onclick="authorizeAndFetch()">Get New Song</button>
+      </div>
+      
+      <script>
+        const clientId = '8925094b56504d3eaca1a3540024c946';
+        const redirectUri = 'http://localhost:8000/affirm/'; // Your redirect URI here
+        const scopes = ['user-read-private', 'user-read-email']; // Add your required scopes here
+      
+        function authorizeAndFetch() {
+          const authorizeUrl = `https://accounts.spotify.com/authorize?response_type=code&client_id=${clientId}&scope=${encodeURIComponent(scopes.join(' '))}&redirect_uri=${encodeURIComponent(redirectUri)}`;
+          window.location.href = authorizeUrl;
+        }
+      
+        function getRandomTrack(tracks) {
+          const randomIndex = Math.floor(Math.random() * tracks.length);
+          return tracks[randomIndex];
+        }
+      
+        function displayTrack(track) {
+          const songNameElement = document.getElementById('song-name');
+          const artistNameElement = document.getElementById('artist-name');
+          songNameElement.textContent = track.name;
+          artistNameElement.textContent = `By ${track.artists[0].name}`;
+        }
+      
+        function fetchPlaylistTracks(accessToken) {
+          const playlistId = '37i9dQZF1DX7KNKjOK0o75';
+          fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks?limit=50`, {
+            headers: {
+              'Authorization': `Bearer ${accessToken}`
+            }
+          })
+            .then(response => response.json())
+            .then(data => {
+              const tracks = data.items.map(item => item.track);
+              const randomTrack = getRandomTrack(tracks);
+              displayTrack(randomTrack);
+            })
+            .catch(error => console.log('Error:', error));
+        }
+      
+        // Handle the callback after user logs in
+        if (window.location.search.includes('code')) {
+          const searchParams = new URLSearchParams(window.location.search);
+          const code = searchParams.get('code');
+      
+          // Request an access token with the authorization code
+          const tokenUrl = 'https://accounts.spotify.com/api/token';
+          const authString = `${clientId}:2b3f3319cc2e4cd8be5be44a99341337`;
+          const base64AuthString = btoa(authString);
+      
+          const requestOptions = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'Authorization': `Basic ${base64AuthString}`,
+            },
+            body: `grant_type=authorization_code&code=${code}&redirect_uri=${encodeURIComponent(redirectUri)}`,
+          };
+      
+          fetch(tokenUrl, requestOptions)
+            .then(response => response.json())
+            .then(data => {
+              // Save the access token and refresh token in local storage or cookies for future use
+              const accessToken = data.access_token;
+              const refreshToken = data.refresh_token;
+              localStorage.setItem('accessToken', accessToken);
+              localStorage.setItem('refreshToken', refreshToken);
+      
+              // Call fetchPlaylistTracks with the access token
+              fetchPlaylistTracks(accessToken);
+            })
+            .catch(error => console.error('Error:', error));
+        }
+        newSongButton.addEventListener('click', fetchNewSong);
+        </script>
+      
+
+    </div>
+
     <script src="{% static 'js/app.js' %}"></script>
+
+
   </body>
 </html>

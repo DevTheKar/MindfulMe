@@ -1,4 +1,6 @@
 {% load static %}
+{% load crispy_forms_tags %}
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -8,14 +10,15 @@
         <link rel="stylesheet" href="{% static 'css/global.css' %}">
         <link rel="stylesheet" href="{% static 'css/styles.css' %}">
         <link rel="preconnect" href="https://fonts.googleapis.com"> 
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
     </head>
 
     <!-- NAVBAR here -->
   <nav class="navbar">
     <div class="navbar__container">
-		<a href="/index">
+		<a href="/profile">
             <img src = "{% static 'graphics/logo.png' %}" height = "50px" width = "230px" style="margin-top: 10px;"/>
           </a>
       <div class="navbar__toggle" id="mobile-menu">
@@ -46,8 +49,8 @@
         background-color: white;
         margin: 0;
         padding: 0;
-        background: url("static/graphics/background.jpg");
-        background-size: cover;
+        background-image: url("{% static 'graphics/background.jpg' %}");
+        background-size: 100% 100%;
         background-repeat: no-repeat;
       }
 
@@ -175,37 +178,90 @@
        ::placeholder {
         color:#15000025;
        }
-
     </style>
-  <body>
+
+  <body style = "font-family: 'Noto Sans', sans-serif; background-color: white;">
 
     <div id="journal-prompt">
       <h2>Journal Prompt:</h2>
-      <p id="prompt-text">What are you grateful for today?</p>
+      <div id="prompt" style="font-size: 1.2rem; color: black"></div>
+      
+  <script>
+    // 1. Request a list of prompts from the API
+    fetch('prompts.json')
+    .then(response => response.json())
+    .then(data => {
+      // 2. Parse the response to extract a random prompt
+      const randomIndex = Math.floor(Math.random() * data.length);
+      const prompt = data[randomIndex].text;
+
+      // 3. Display the prompt in the specified HTML element
+      const promptElement = document.getElementById('prompt');
+      promptElement.textContent = prompt;
+    });
+
+    // 4. Set up a function to fetch a new prompt every day
+    function fetchDailyPrompt() {
+      fetch('prompts.json')
+      .then(response => response.json())
+      .then(data => {
+        const randomIndex = Math.floor(Math.random() * data.length);
+        const prompt = data[randomIndex].text;
+
+        const promptElement = document.getElementById('prompt');
+        promptElement.textContent = prompt;
+      });
+    }
+
+    // 5. Call the function once per day
+    setInterval(fetchDailyPrompt, 86400000); // 24 hours in milliseconds
+      </script>
     </div>
 
-    <div id="journal-input">
-      <h2>Journal Entry:</h2>
-      <textarea id="journal-text" placeholder = "Type your journal here..."></textarea>
-      <button id="save-button">Save Entry</button>
-    </div>
+  <div class="add-modal" id="add-modal">
+      <div class="form form-group">
+          <form action="" method="post">
+              {% csrf_token %}
+              <h3 style="text-align: center; font-family: 'Noto Sans', sans-serif;">Add Note</h3>
+              <div style="position: relative; margin: auto; width: 550px; height: 350px;">
+                {{form |crispy}}
+               </div>
+              <div class="form-group text-center">
+                  <button type="submit" class="btn btn-primary " id="button">Save</button>
+                  <button type="button" class="btn btn-danger close-btn" onclick="closeModal('add-modal')" id="button">Cancel</button>
+              </div>
+          </form>
+      </div>
+  </div>
+  <div class="container">
+    <br>
+    <h1>Recent Notes</h1>
+    
+    <div class="form">
 
-    <div id = "previous_journals" id="journal_history">
-      <h2>Previous Journals</h2>
-      <ul>
-        <li><a href="#">Journal Entry 1</a></li>
-        <li><a href="#">Journal Entry 2</a></li>
-        <li><a href="#">Journal Entry 3</a></li>
-        <li><a href="#">Journal Entry 4</a></li>
-        <li><a href="#">Journal Entry 5</a></li>
-        <li><a href="#">Journal Entry 6</a></li>
-        <li><a href="#">Journal Entry 7</a></li>
-        <li><a href="#">Journal Entry 8</a></li>
-      </ul>
+      
+        {% for note in notes %}
+        <div class="note"></div>
+          
+         
+            {% if user == note.author %}
+              <h2 class="text-info">{{note.title}}</h2>
+              <p>{{note.description}}</p>
+              <div class="options">
+                <a href="/update/{{note.id}}/" class="btn btn-success">Update</a>
+                <a href="/delete/{{note.id}}/" class="btn btn-danger">Delete</a>
+              </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+      
+            
     </div>
+  </div>
 
 
     <script src="{% static 'js/app.js' %}"></script>
+
   </body>
 
   </html>

@@ -17,7 +17,7 @@
 <!-- NAVBAR here -->
   <nav class="navbar">
     <div class="navbar__container">
-		<a href="/">
+		<a href="/profile">
             <img src = "{% static 'graphics/logo.png' %}" height = "50px" width = "230px" style="margin-top: 10px;"/>
           </a>
       <div class="navbar__toggle" id="mobile-menu">
@@ -42,11 +42,35 @@
   </nav>
 
 	<style>
+
+   .services__wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+  }
+  
+  .services__card_profile {
+    margin: 25px;
+    height: 350px;
+    width: 250px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    transition: 0.3s ease-in;
+    padding: 17px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+  }
+  
+
 		body {
 			font-family: 'Noto Sans', sans-serif;
-			background-image: url("MindfulMe/main/static/graphics/background.jpg");
+			background-image: url("{% static 'graphics/background.jpg' %}");
 			font-size: 16px;
 			text-align: center;
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
 		}
 
 		#greeting {
@@ -65,6 +89,26 @@
     padding: 2rem;
   }
 
+  .hand-icon {
+      width: 100px;
+      height: 100px;
+      margin-top: 1.5rem;
+      background-image: url("{% static 'graphics/hand.svg' %}");
+      background-size: contain;
+      background-repeat: no-repeat;
+      animation: wave 2s linear infinite;
+    }
+    
+    @keyframes wave {
+      0% { transform: rotate(0deg); }
+      25% { transform: rotate(20deg); }
+      50% { transform: rotate(0deg); }
+      75% { transform: rotate(-20deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    
+
 
 	</style>
 </head>
@@ -72,11 +116,14 @@
 
 <!-- Heading and greeter here-->
 <div class = "container">
-	<div id="greeting">Great to have you here</div>
-    <div id="question">What would you like to do today?</div>
+  <div class = "hand-icon"></div>
+  <div class = "header">
+    <h1 style = "font-size: 3.5rem;">Welcome!</h1>
+    <h2 style="font-size: 1.5rem;">Glad to have you here!</h2>
+  </div>
+  <div style = "font-size: 1.2rem; margin-top: 1rem; margin-bottom: -3rem;">What would you like to do today?</div>
 
 	<br /> <br/>
-
 <!-- clickable buttons that will go to each feature will go here-->
 	<div class="services__wrapper">
 		<div class="services__card_profile">

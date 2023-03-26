@@ -208,8 +208,8 @@
   
   .services__card {
     margin: 25px;
-    height: 425px;
-    width: 300px;
+    height: 350px;
+    width: 200px;
     border-radius: 4px;
     display: flex;
     flex-direction: column;

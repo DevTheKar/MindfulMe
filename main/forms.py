@@ -18,10 +18,5 @@ class NoteUpdateForm(forms.ModelForm):
     class Meta:
         model=Note
         fields=['title','description']
-
-class AccountSettingsForm(forms.ModelForm):
-    class Meta:
-        model=User
-        fields=['username','first_name','last_name']
-
 #-----------------------------------------------#
+
