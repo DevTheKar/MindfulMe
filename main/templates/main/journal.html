@@ -1,0 +1,211 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>MindfulMe</title>
+        <link rel="stylesheet" href="{% static 'css/global.css' %}">
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+        <link rel="preconnect" href="https://fonts.googleapis.com"> 
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+    </head>
+
+    <!-- NAVBAR here -->
+  <nav class="navbar">
+    <div class="navbar__container">
+		<a href="/index">
+            <img src = "{% static 'graphics/logo.png' %}" height = "50px" width = "230px" style="margin-top: 10px;"/>
+          </a>
+      <div class="navbar__toggle" id="mobile-menu">
+        <span class="bar"></span> <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+      <ul class="navbar__menu">
+        <li class="navbar__item">
+          <a href="/affirm" class="navbar__links" id="affirm-page">Affirm</a>
+        </li>
+        <li class="navbar__item">
+          <a href="/journal" class="navbar__links" id="journal-page">Journal</a>
+        </li>
+        <li class="navbar__item">
+          <a href="/todolist" class="navbar__links" id="track-page">Track</a>
+        </li>
+        <li class="navbar__btn">
+          <a href="/login" class="button" id="signup">Sign out</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+
+    <style>
+      /* Styling for the page */
+      body {
+        background-color: white;
+        margin: 0;
+        padding: 0;
+        background: url("static/graphics/background.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+      #journal-prompt {
+        background-color: white;
+        width: 37.5rem;
+        margin: auto;
+        margin-top: 3.125rem;
+        padding: 1.25rem;
+        text-align: center;
+        font-size: 1.125rem;
+        border-radius: 30px;
+        box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.2);
+      }
+
+      #journal-input {
+        background-color: white;
+        width: 37.5rem;
+        margin: auto;
+        margin-top: 2rem;
+        padding: 1.25rem;
+        border-radius: 0.625rem;
+        box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.2);
+        text-align: center;
+      }
+
+      #journal-input textarea {
+        width: 100%;
+        height: 200px;
+        padding: 10px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        margin-bottom: 10px;
+        margin-top: 10px;
+      }
+
+
+      #journal-input button {
+        background-color: rgb(151, 105, 157);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      #journal-input button:hover {
+        background-color: rgb(123,83,129);
+        cursor: pointer;
+      }
+      
+      #journal-list {
+        background-color: white;
+        width: 600px;
+        margin: auto;
+        margin-top: 50px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        margin-bottom: 5rem;
+      }
+      
+      #journal-list h2 {
+        margin-top: 0;
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+      }
+
+      #journal-list ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      #journal-list li {
+        margin-bottom: 10px;
+        font-size: 16px;
+      }
+
+      #journal-list li span {
+        font-weight: bold;
+        margin-right: 10px;
+      }
+
+      #previous_journals {
+        background-color: white;
+        border-radius: 10px;
+        margin: auto;
+        margin-top: 2rem;
+        margin-bottom: 5rem;
+        padding: 1.25rem;
+        width: 37.5rem;
+        text-align: center;
+      }
+
+        #previous_journals h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+
+        #previous_journals ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+
+        #previous_journals li {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+        #previous_journals a {
+        color: #337ab7;
+        text-decoration: none;
+       }
+
+        #previous_journals a:hover {
+        text-decoration: underline;
+       }
+
+       ::placeholder {
+        color:#15000025;
+       }
+
+    </style>
+  <body>
+
+    <div id="journal-prompt">
+      <h2>Journal Prompt:</h2>
+      <p id="prompt-text">What are you grateful for today?</p>
+    </div>
+
+    <div id="journal-input">
+      <h2>Journal Entry:</h2>
+      <textarea id="journal-text" placeholder = "Type your journal here..."></textarea>
+      <button id="save-button">Save Entry</button>
+    </div>
+
+    <div id = "previous_journals" id="journal_history">
+      <h2>Previous Journals</h2>
+      <ul>
+        <li><a href="#">Journal Entry 1</a></li>
+        <li><a href="#">Journal Entry 2</a></li>
+        <li><a href="#">Journal Entry 3</a></li>
+        <li><a href="#">Journal Entry 4</a></li>
+        <li><a href="#">Journal Entry 5</a></li>
+        <li><a href="#">Journal Entry 6</a></li>
+        <li><a href="#">Journal Entry 7</a></li>
+        <li><a href="#">Journal Entry 8</a></li>
+      </ul>
+    </div>
+
+
+    <script src="{% static 'js/app.js' %}"></script>
+  </body>
+
+  </html>

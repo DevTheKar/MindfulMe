@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Login</title>
+        <link rel = "stylesheet" href = "css-js/styles.css">
+        <link rel = "stylesheet" href = "css-js/global.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com"> 
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+    </head>
+    
+<body>
+
+    <!-- Navbar -->
+
+  <nav class="navbar">
+    <div class="navbar__container">
+
+    <!-- clicking on logo brings you do index page-->
+        <a href="index.html">
+            <img src = "graphics/logo.png" height = "50px" width = "230px" style="margin-top: 10px;"/>
+          </a>
+      <div class="navbar__toggle" id="mobile-menu">
+        <span class="bar"></span> <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+      <ul class="navbar__menu">
+        <li class="navbar__item">
+      
+    <!-- clicking on home brings you to index page and clicking on sing up goes to signup page-->
+          <a href="index.html" class="navbar__links" id="home-page">Home</a>
+        <li class="navbar__btn">
+          <a href="signup.html" class="button" id="signup">Sign Up</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+<style> 
+    body {
+        background-image: url("graphics/background.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+    #login_bar {
+        background-color: rgba(255, 255, 255, 0.45);
+        width: 60%; /* set the width to 80% of the viewport width */
+        height: auto; /* set the height to auto to adjust for content */
+        margin: auto;
+        margin-top: 13vw; /* set the top margin to 13% of the viewport width */
+        padding: 4vw; /* set the padding to 4% of the viewport width */
+        text-align: center;
+        font-weight: bold;
+        border-radius: 25px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* add a subtle box shadow */
+        border: 1px solid #ddd; /* add a light border */
+    }
+
+    #text{
+        height: 40px;
+        width: 300px;
+        border-radius: 4px;
+        border: solid 1px #ccc;
+        padding: 4px;
+        font-size: 14px;
+    }
+
+    #button{
+        width: 300px;
+        height: 40px;
+        border-radius: 10px;
+        font-weight: bold;
+        border: none;
+        background-color: rgb(151, 105, 157);
+        color: white;
+        margin-top: 20px;
+    }
+   
+    #button:hover {
+        background-color: rgb(123, 83, 129);
+        cursor: pointer; /* change the cursor to a pointer on hover */
+    }
+
+    form input[type="text"],
+form input[type="password"] {
+  background-color: rgba(255, 255, 255, 0.908); /* translucent white color */
+  border-radius: 30px; /* rounded corners */
+  border: none;
+  width: 100%; /* fill the entire width of the container */
+}
+
+
+</style>
+
+    <body style = "font-family: 'Noto Sans', sans-serif; background-color: white;" > 
+
+        <div id = "login_bar">
+
+            <div style = "font-size: 40px;">LOG IN</div><br><br>
+
+            <input type = "text" id = "text" placeholder = "Email Address"> <br><br>
+            <input type = "password" id = "text" placeholder = "Password" > <br><br>
+
+            <input type = "submit" id = "button" value = "Log in">
+
+
+        </div>
+
+
+    
+
+
+<script src = "css-js/app.js"></script>  
+    </body>
+
+</html>

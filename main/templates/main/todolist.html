@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>To-Do List</title>
+    <style>
+      body {
+        font-family: "Noto Sans", sans-serif;
+        background-color: rgb(182, 218, 222);
+        font-size: 16px;
+      }
+
+      #todo-list {
+        background-color: white;
+        width: 400px;
+        margin: 50px auto;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      #todo-list h1 {
+        text-align: center;
+        font-size: 36px;
+        font-weight: bold;
+      }
+
+      #todo-list ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      #todo-list li {
+        margin-bottom: 10px;
+      }
+
+      #todo-list input[type="checkbox"] {
+        margin-right: 10px;
+      }
+
+      #add-button-container {
+        text-align: center;
+      }
+
+      #add-button {
+        width: 100px;
+        height: 40px;
+        border-radius: 10px;
+        font-weight: bold;
+        border: none;
+        background-color: rgb(95, 170, 179);
+        color: white;
+      }
+
+      #add-input {
+        width: 250px;
+        height: 30px;
+        padding: 5px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        margin-right: 10px;
+      }
+    </style>
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  </head>
+  <body>
+
+    <div id="todo-list">
+      <h1>To-Do List</h1>
+      <!-- To Do List Form -->
+          <form method="POST" action="#">
+              {% csrf_token %}
+              <!-- Shows all tasks -->
+              {% for item in ls.item_set.all %}
+              <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                      <div class="input-group-text">
+                      {% if item.complete == True %}
+                          <input type="checkbox", value="clicked", name="c{{item.id}}" checked>
+                      {% else %}
+                          <input type="checkbox", value="clicked", name="c{{item.id}}">
+                      {% endif %}
+                      </div>
+                  </div>    
+                  <input type="text", value="{{item.text}}" class="form-control">
+              </div>
+              {% endfor %}
+              
+              <!-- Add Button -->
+              <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                      <button id="add-button-container", type="submit", name="newItem", value="newItem", class="btn btn-success">Add Item</button>
+                  </div>
+                  <input type="text", name="new">
+              </div>
+      
+              <button type="submit", name="save", value="save", class="btn btn-success">Save</button>
+          </form>
+      <!-- End of To Do List Form -->
+
+      <ul>
+        <li>
+          <input type="checkbox" id="task1" name="task1" />
+          <label for="task1">Task 1</label>
+        </li>
+        <li>
+          <input type="checkbox" id="task2" name="task2" />
+          <label for="task2">Task 2</label>
+        </li>
+        <li>
+          <input type="checkbox" id="task3" name="task3" />
+          <label for="task3">Task 3</label>
+        </li>
+      </ul>
+
+      <div id="add-button-container">
+        <input type="text" id="add-input" placeholder="New Task" />
+        <input type="button" id="add-button" value="Add" />
+      </div>
+    </div>
+    <script src="{% static 'js/app.js' %}"></script>
+  </body>
+</html>

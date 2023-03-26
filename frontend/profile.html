@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>MindfulMe</title>
+        <link rel = "stylesheet" href = "css-js/styles.css">
+        <link rel = "stylesheet" href = "css-js/global.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com"> 
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+    </head>
+    
+<body>
+
+<!-- NAVBAR here -->
+  <nav class="navbar">
+    <div class="navbar__container">
+		<a href="index.html">
+            <img src = "graphics/logo.png" height = "50px" width = "230px" style="margin-top: 10px;"/>
+          </a>
+      <div class="navbar__toggle" id="mobile-menu">
+        <span class="bar"></span> <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+      <ul class="navbar__menu">
+        <li class="navbar__item">
+          <a href="affirm.html" class="navbar__links" id="affirm-page">Affirm</a>
+        </li>
+        <li class="navbar__item">
+          <a href="journal.html" class="navbar__links" id="journal-page">Journal</a>
+        </li>
+        <li class="navbar__item">
+          <a href="track.html" class="navbar__links" id="track-page">Track</a>
+        </li>
+        <li class="navbar__btn">
+          <a href="login.html" class="button" id="signup">Sign out</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+	<style>
+		body {
+			font-family: 'Noto Sans', sans-serif;
+			background-image: url("graphics/background.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+			font-size: 16px;
+			text-align: center;
+		}
+
+		#greeting {
+			font-size: 30px;
+			font-weight: bold;
+			margin-top: 50px;
+			margin-bottom: 50px;
+		}
+
+		.container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+
+	</style>
+</head>
+<body>
+
+<!-- Heading and greeter here-->
+<div class = "container">
+  <div class = "hand-icon"></div>
+  <div class = "header">
+    <h1 style = "font-size: 5rem;">Welcome!</h1>
+    <h2 style="font-size: 2rem;">Glad to have you here!</h2>
+  </div>
+  <div style = "font-size: 2rem; margin-top: 1rem; margin-bottom: -3rem;">What would you liek to do today?</div>
+
+	<br /> <br/>
+
+<!-- clickable buttons that will go to each feature will go here-->
+	<div class="services__wrapper">
+		<a href = "affirm.html" class="services__card_profile"> <!--Affirm button-->
+		  <h2 style = "font-size: 40px; color: black;">Affirm.</h2>
+		  <div style="display: flex; justify-content: center; align-items: center; padding: 15px;">
+			<img src="graphics/music-solid.svg" height="70px" width="70px">
+		  </div>
+		  <p style="color: black;">Receive daily affirmations and song recommendations to lift you up.</p>
+		</a>
+
+		<a href = "journal.html" class="services__card_profile"> <!--Journal button-->
+		<div class="services__card_profile">
+		  <h2 style = "font-size: 40px; color: black;">Reflect.</h2>
+		  <div style="display: flex; justify-content: center; align-items: center; padding: 15px;">
+			<img src="graphics/book-solid.svg" height="70px" width="70px">
+		  </div>
+		  <p style="color: black;">Respond to journal prompts to foster a positive mindset.</p>
+		</a>
+
+
+		<a href = "track.html" class="services__card_profile"> <!--Track button-->
+		<div class="services__card_profile">
+		  <h2 style = "font-size: 40px; color: black;">Track.</h2>
+		  <div style="display: flex; justify-content: center; align-items: center; padding: 15px;">
+			<img src="graphics/list-check-solid.svg" height="70px" width="70px">
+		  </div>
+		  <p style="color: black;">Track your healthy habits daily with a checklist.</p>
+		</a>
+		
+	  </div>
+	</div>
+<script src = "css-js/app.js"></script>
+</body>
+</html>
